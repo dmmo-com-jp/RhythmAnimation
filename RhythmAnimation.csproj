@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!--Pdb内にソースコードのフルパスを含めない-->
+		<RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</RepoRoot>
+		<PathMap>$(RepoRoot)=.</PathMap>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!--このプロジェクトをベースにプラグインを開発する場合は「ここから」～「ここまで」の部分を削除する-->
+
+
+		<Reference Include="$(YMM4_PATH)\YukkuriMovieMaker.Plugin.dll">
+			<Private>false</Private>
+			<CopyLocal>false</CopyLocal>
+		</Reference>
+		<Reference Include="$(YMM4_PATH)\YukkuriMovieMaker.Controls.dll">
+			<Private>false</Private>
+			<CopyLocal>false</CopyLocal>
+		</Reference>
+		<Reference Include="$(YMM4_PATH)\Vortice.Direct2D1.dll">
+			<Private>false</Private>
+			<CopyLocal>false</CopyLocal>
+		</Reference>
+	</ItemGroup>
+
+	<!--ビルド後にYMM4のプラグインフォルダにdllをコピーする-->
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="mkdir &quot;$(YMM4_PATH)\user\plugin\$(ProjectName)&quot; &gt; NUL 2&gt;&amp;1&#xD;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(YMM4_PATH)\user\plugin\$(ProjectName)\&quot;" />
+	</Target>
+</Project>
