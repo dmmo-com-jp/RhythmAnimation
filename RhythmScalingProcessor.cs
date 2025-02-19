@@ -38,8 +38,8 @@ namespace RhythmAnimation
                 drawDesc with
                 {
                     Zoom = new(
-                        drawDesc.Zoom.X + (((float)x /(float)拡大間隔)*(float)fps_frame),
-                        drawDesc.Zoom.Y + (((float)y / (float)拡大間隔) * (float)fps_frame)
+                        drawDesc.Zoom.X + Math.Sign(x) * (((float)x /(float)拡大間隔)*(float)fps_frame),
+                        drawDesc.Zoom.Y + Math.Sign(y) * (((float)y / (float)拡大間隔) * (float)fps_frame)
                         )
                 };
         }

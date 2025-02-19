@@ -35,10 +35,10 @@ namespace RhythmAnimation
         [AnimationSlider("F0", "BPM", 0, 250)]
         public Animation BPM { get; } = new Animation(0, -10000, 10000);
         [Display(Name = "X", Description = "X")]
-        [AnimationSlider("F2", "px", -100, 100)]
+        [AnimationSlider("F2", "px", -10, 10)]
         public Animation X { get; } = new Animation(0, -10000, 10000);
         [Display(Name = "Y", Description = "Y")]
-        [AnimationSlider("F2", "px", -100, 100)]
+        [AnimationSlider("F2", "px", -10, 10)]
         public Animation Y { get; } = new Animation(0, -10000, 10000);
         /// <summary>
         /// Exoフィルタを作成する。

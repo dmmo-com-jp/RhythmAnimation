@@ -33,13 +33,12 @@ namespace RhythmAnimation
             var drawDesc = effectDescription.DrawDescription;
             var 拡大間隔 = Math.Round(1 / (BPM / 60.0) / (1.0 / fps));
             var fps_frame = frame % 拡大間隔;
-
             return
                 drawDesc with
                 {
                     Draw = new(
-                        drawDesc.Draw.X + (((float)x / (float)拡大間隔) * (float)fps_frame),
-                        drawDesc.Draw.Y + (((float)y / (float)拡大間隔) * (float)fps_frame),
+                        drawDesc.Draw.X + Math.Sign(x) * (((float)x / (float)拡大間隔) * (float)fps_frame),
+                        drawDesc.Draw.Y + Math.Sign(y) * (((float)y / (float)拡大間隔) * (float)fps_frame),
                         drawDesc.Draw.Z
                         )
                 };
