@@ -5,14 +5,14 @@ using YukkuriMovieMaker.Player.Video;
 
 namespace RhythmAnimation
 {
-    internal class RhythmScalingProcessor : IVideoEffectProcessor
+    internal class RhythmRotationProcessor : IVideoEffectProcessor
     {
-        readonly RhythmScaling item;
+        readonly RhythmRotation item;
         ID2D1Image? input;
 
         public ID2D1Image Output => input ?? throw new NullReferenceException(nameof(input) + "is null");
 
-        public RhythmScalingProcessor(RhythmScaling item)
+        public RhythmRotationProcessor(RhythmRotation item)
         {
             this.item = item;
         }
@@ -29,17 +29,19 @@ namespace RhythmAnimation
             var fps = effectDescription.FPS;
             var x = item.X.GetValue(frame, length, fps);
             var y = item.Y.GetValue(frame, length, fps);
+            var z = item.Z.GetValue(frame, length, fps);
             var BPM = item.BPM.GetValue(frame, length, fps);
             var drawDesc = effectDescription.DrawDescription;
             var 拡大間隔 = Math.Round(1 / (BPM / 60.0) / (1.0 / fps));
-            var fps_frame = frame % (float)拡大間隔;
+            var fps_frame = frame % 拡大間隔;
 
             return
                 drawDesc with
                 {
-                    Zoom = new(
-                        drawDesc.Zoom.X + ((float)x /(float)拡大間隔)*(float)fps_frame,
-                        drawDesc.Zoom.Y + ((float)y / (float)拡大間隔) * (float)fps_frame
+                    Rotation = new(
+                        drawDesc.Rotation.X + ((int)x /(int)拡大間隔)*(int)fps_frame,
+                        drawDesc.Rotation.Y + ((int)y / (int)拡大間隔) * (int)fps_frame,
+                        drawDesc.Rotation.Z + ((int)z / (int)拡大間隔) * (int)fps_frame
                         )
                 };
         }

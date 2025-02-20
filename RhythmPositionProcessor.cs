@@ -37,8 +37,8 @@ namespace RhythmAnimation
                 drawDesc with
                 {
                     Draw = new(
-                        drawDesc.Draw.X + Math.Sign(x) * (((float)x / (float)拡大間隔) * (float)fps_frame),
-                        drawDesc.Draw.Y + Math.Sign(y) * (((float)y / (float)拡大間隔) * (float)fps_frame),
+                        drawDesc.Draw.X + ((float)x / (float)拡大間隔) * (float)fps_frame,
+                        drawDesc.Draw.Y + (-1*(float)y / (float)拡大間隔) * (float)fps_frame,
                         drawDesc.Draw.Z
                         )
                 };

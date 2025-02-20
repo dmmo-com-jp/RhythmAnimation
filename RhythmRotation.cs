@@ -18,13 +18,13 @@ namespace RhythmAnimation
     /// 映像エフェクト
     /// 映像エフェクトには必ず[VideoEffect]属性を設定してください。
     /// </summary>
-    [VideoEffect("リズム移動", ["アニメーション"], [])]
-    internal class RhythmPosition : VideoEffectBase
+    [VideoEffect("リズム回転", ["アニメーション"], [])]
+    internal class RhythmRotation : VideoEffectBase
     {
         /// <summary>
         /// エフェクトの名前
         /// </summary>
-        public override string Label => "リズム移動";
+        public override string Label => "リズム回転";
 
         /// <summary>
         /// アイテム編集エリアに表示するエフェクトの設定項目。
@@ -34,12 +34,15 @@ namespace RhythmAnimation
         [Display(Name = "BPM", Description = "BPM")]
         [AnimationSlider("F0", "BPM", 0, 250)]
         public Animation BPM { get; } = new Animation(0, -10000, 10000);
-        [Display(Name = "X", Description = "X")]
-        [AnimationSlider("F0", "px", -100, 100)]
+        [Display(Name = "X軸", Description = "X")]
+        [AnimationSlider("F1", "度", -180, 180)]
         public Animation X { get; } = new Animation(0, -10000, 10000);
-        [Display(Name = "Y", Description = "Y")]
-        [AnimationSlider("F0", "px", -100, 100)]
+        [Display(Name = "Y軸", Description = "Y")]
+        [AnimationSlider("F1", "度", -180, 180)]
         public Animation Y { get; } = new Animation(0, -10000, 10000);
+        [Display(Name = "Z軸", Description = "Z")]
+        [AnimationSlider("F1", "度", -180, 180)]
+        public Animation Z { get; } = new Animation(0, -10000, 10000);
         /// <summary>
         /// Exoフィルタを作成する。
         /// </summary>
@@ -59,14 +62,14 @@ namespace RhythmAnimation
         /// <returns>映像エフェクト</returns>
         public override IVideoEffectProcessor CreateVideoEffect(IGraphicsDevicesAndContext devices)
         {
-            return new RhythmPositionProcessor(this);
+            return new RhythmRotationProcessor(this);
         }
 
         /// <summary>
         /// クラス内のIAnimatableを列挙する。
         /// </summary>
         /// <returns></returns>
-        protected override IEnumerable<IAnimatable> GetAnimatables() => [X, Y];
+        protected override IEnumerable<IAnimatable> GetAnimatables() => [X, Y, Z];
         public PluginDetailsAttribute Details => new()
         {
             //制作者
