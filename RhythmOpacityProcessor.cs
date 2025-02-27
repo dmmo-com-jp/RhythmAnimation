@@ -1,18 +1,19 @@
 ﻿using Vortice.Direct2D1;
+using Vortice.Direct2D1.Effects;
 using Vortice.DirectWrite;
 using YukkuriMovieMaker.Commons;
 using YukkuriMovieMaker.Player.Video;
 
 namespace RhythmAnimation
 {
-    internal class RhythmRotationProcessor : IVideoEffectProcessor
+    internal class RhythmOpacityProcessor : IVideoEffectProcessor
     {
-        readonly RhythmRotation item;
+        readonly RhythmOpacity item;
         ID2D1Image? input;
 
         public ID2D1Image Output => input ?? throw new NullReferenceException(nameof(input) + "is null");
 
-        public RhythmRotationProcessor(RhythmRotation item)
+        public RhythmOpacityProcessor(RhythmOpacity item)
         {
             this.item = item;
         }
@@ -27,22 +28,15 @@ namespace RhythmAnimation
             var frame = effectDescription.ItemPosition.Frame;
             var length = effectDescription.ItemDuration.Frame;
             var fps = effectDescription.FPS;
-            var x = item.X.GetValue(frame, length, fps);
-            var y = item.Y.GetValue(frame, length, fps);
-            var z = item.Z.GetValue(frame, length, fps);
+            var opacity = item.Opacity.GetValue(frame, length, fps)/100.0;
             var BPM = item.BPM.GetValue(frame, length, fps);
             var drawDesc = effectDescription.DrawDescription;
             var 拡大間隔 = Math.Round(1 / (BPM / 60.00) / (1.00 / fps));
             var fps_frame = frame % 拡大間隔;
-
             return
                 drawDesc with
                 {
-                    Rotation = new(
-                        drawDesc.Rotation.X + ((float)x /(float)拡大間隔)*(float)fps_frame,
-                        drawDesc.Rotation.Y + ((float)y / (float)拡大間隔) * (float)fps_frame,
-                        drawDesc.Rotation.Z + ((float)z / (float)拡大間隔) * (float)fps_frame
-                        )
+                    Opacity = drawDesc.Opacity + ((float)opacity / (float)拡大間隔) * (float)fps_frame
                 };
         }
         public void ClearInput()
