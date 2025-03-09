@@ -40,6 +40,9 @@ namespace RhythmAnimation
         [Display(Name = "Y", Description = "Y")]
         [AnimationSlider("F0", "px", -100, 100)]
         public Animation Y { get; } = new Animation(0, -10000, 10000);
+        [Display(Name = "Z", Description = "Z")]
+        [AnimationSlider("F0", "px", -100, 100)]
+        public Animation Z { get; } = new Animation(0, -10000, 10000);
         /// <summary>
         /// Exoフィルタを作成する。
         /// </summary>
@@ -66,7 +69,7 @@ namespace RhythmAnimation
         /// クラス内のIAnimatableを列挙する。
         /// </summary>
         /// <returns></returns>
-        protected override IEnumerable<IAnimatable> GetAnimatables() => [X, Y];
+        protected override IEnumerable<IAnimatable> GetAnimatables() => [X, Y, Z, BPM];
         public PluginDetailsAttribute Details => new()
         {
             //制作者

@@ -29,6 +29,7 @@ namespace RhythmAnimation
             var fps = effectDescription.FPS;
             var x = item.X.GetValue(frame, length, fps);
             var y = item.Y.GetValue(frame, length, fps);
+            var z = item.Z.GetValue(frame, length, fps);
             var BPM = item.BPM.GetValue(frame, length, fps);
             var drawDesc = effectDescription.DrawDescription;
             var 拡大間隔 = Math.Round(1 / (BPM / 60.0) / (1.0 / fps));
@@ -39,7 +40,7 @@ namespace RhythmAnimation
                     Draw = new(
                         drawDesc.Draw.X + ((float)x / (float)拡大間隔) * (float)fps_frame,
                         drawDesc.Draw.Y + (-1*(float)y / (float)拡大間隔) * (float)fps_frame,
-                        drawDesc.Draw.Z
+                        drawDesc.Draw.Z + ((float)z / (float)拡大間隔) * (float)fps_frame
                         )
                 };
         }

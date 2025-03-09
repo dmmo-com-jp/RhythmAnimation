@@ -69,7 +69,7 @@ namespace RhythmAnimation
         /// クラス内のIAnimatableを列挙する。
         /// </summary>
         /// <returns></returns>
-        protected override IEnumerable<IAnimatable> GetAnimatables() => [X, Y, Z];
+        protected override IEnumerable<IAnimatable> GetAnimatables() => [X, Y, Z, BPM];
         public PluginDetailsAttribute Details => new()
         {
             //制作者
